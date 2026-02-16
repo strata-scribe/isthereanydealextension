@@ -1,7 +1,7 @@
 # Implementation Plan: Core GFN Integration & UI Indicators
 
 ## Phase 1: Environment Setup & Scaffolding
-- [~] Task: Project Initialization
+- [x] Task: Project Initialization (f8114db)
     - [ ] Initialize Vite project with React and TypeScript
     - [ ] Configure manifest.json (Manifest V3)
     - [ ] Set up basic folder structure (background, content, options, popup)
