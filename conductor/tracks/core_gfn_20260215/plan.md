@@ -8,7 +8,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Environment Setup - [ ] Task: Conductor - User Manual Verification 'Phase 1: Environment Setup & Scaffolding' (Protocol in workflow.md) Scaffolding' (Protocol in workflow.md)
 
 ## Phase 2: Data Acquisition (Steam Curator)
-- [ ] Task: Background Script Development
+- [~] Task: Background Script Development
     - [ ] Implement fetch logic for Steam Curator URLs
     - [ ] Parse Steam AppIDs from the curator page content
     - [ ] Store AppID list in `browser.storage.local`
