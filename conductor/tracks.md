@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Core GFN Integration & UI Indicators**
+- [~] **Track: Core GFN Integration - [ ] **Track: Core GFN Integration & UI Indicators** UI Indicators**
   *Link: [./tracks/core_gfn_20260215/](./tracks/core_gfn_20260215/)*
