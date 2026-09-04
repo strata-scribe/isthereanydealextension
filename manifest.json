@@ -4,7 +4,11 @@
   "version": "1.0.0",
   "description": "Adds GeForce Now compatibility information to IsThereAnyDeal.com",
   "permissions": [
-    "storage"
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://store.steampowered.com/*"
   ],
   "action": {
     "default_popup": "index.html"
