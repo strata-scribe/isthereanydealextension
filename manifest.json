@@ -16,7 +16,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://isthereanydeal.com/*"
+        "https://isthereanydeal.com/*",
+        "https://store.steampowered.com/app/*"
       ],
       "js": [
         "src/content/index.tsx"

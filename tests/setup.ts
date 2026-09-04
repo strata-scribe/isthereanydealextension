@@ -5,6 +5,9 @@ const chromeMock = {
     onInstalled: {
       addListener: vi.fn(),
     },
+    onMessage: {
+      addListener: vi.fn(),
+    },
   },
   alarms: {
     create: vi.fn(),
