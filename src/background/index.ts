@@ -18,3 +18,15 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     fetchAndStoreGfnGames(CURATOR_URLS);
   }
 });
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'getBestPrice') {
+    // In a real implementation, we would query ITAD API here.
+    // For now, we return a mock response.
+    console.log(`Received getBestPrice request for app ID: ${request.appId}`);
+    setTimeout(() => {
+      sendResponse({ price: '$19.99', store: 'IsThereAnyDeal' });
+    }, 500);
+    return true; // Indicates an asynchronous response
+  }
+});
