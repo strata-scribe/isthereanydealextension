@@ -9,6 +9,10 @@
   "action": {
     "default_popup": "index.html"
   },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
   "background": {
     "service_worker": "src/background/index.ts",
     "type": "module"
