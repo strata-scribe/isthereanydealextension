@@ -1,0 +1,40 @@
+name: Package Extension
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Run Tests
+      run: npm test
+
+    - name: Build Extension
+      run: npm run build
+
+    - name: Create Extension Zip
+      run: |
+        cd dist
+        zip -r ../extension.zip .
+        cd ..
+
+    - name: Upload Extension Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: extension-zip
+        path: extension.zip
