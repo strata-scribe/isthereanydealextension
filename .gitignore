@@ -5,3 +5,4 @@ dist
 coverage
 # Jules verification artifacts
 verification/
+\nplaywright-report/\nplaywright/.cache/\ntest-results/\n

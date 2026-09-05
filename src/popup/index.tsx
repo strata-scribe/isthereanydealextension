@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 
-const Popup = () => {
+export const Popup = ({ initialData }: { initialData?: any }) => {
   // Using some mock data for demonstration
-  const [data, setData] = useState({
+  const [data, setData] = useState(initialData || {
     historicalLow: 14.99,
     bestPrice: 19.99,
     discountPercent: 50,
     vouchers: ['SAVE20', 'WINTERSALE'],
     loading: false
   });
+
+  const [copiedVoucher, setCopiedVoucher] = useState<string | null>(null);
+
+  const handleCopy = (voucher: string) => {
+    navigator.clipboard.writeText(voucher).then(() => {
+      setCopiedVoucher(voucher);
+      setTimeout(() => setCopiedVoucher(null), 2000);
+    });
+  };
 
   const styles = {
     container: {
@@ -110,8 +119,23 @@ const Popup = () => {
         <div style={styles.voucherContainer}>
           <div style={styles.voucherTitle}>Available Vouchers:</div>
           <div>
-            {data.vouchers.map((voucher, index) => (
-              <span key={index} style={styles.voucherTag}>{voucher}</span>
+            {data.vouchers.map((voucher: string, index: number) => (
+              <div key={index} style={{ display: 'inline-block', marginRight: '8px', marginBottom: '4px' }}>
+                <span style={{ ...styles.voucherTag, marginRight: '4px', marginBottom: '0' }}>{voucher}</span>
+                <button
+                  onClick={() => handleCopy(voucher)}
+                  style={{
+                    backgroundColor: '#e0e0e0',
+                    border: 'none',
+                    borderRadius: '4px',
+                    padding: '2px 6px',
+                    fontSize: '11px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  {copiedVoucher === voucher ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
             ))}
           </div>
         </div>
