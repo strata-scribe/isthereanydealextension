@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { PriceHistoryChart, PricePoint } from './components/PriceHistoryChart';
+import VoucherCard from './components/VoucherCard';
 
 export const Popup = ({ initialData }: { initialData?: any }) => {
   // Using some mock data for demonstration
@@ -13,14 +14,6 @@ export const Popup = ({ initialData }: { initialData?: any }) => {
     priceHistory: [] as PricePoint[]
   });
 
-  const [copiedVoucher, setCopiedVoucher] = useState<string | null>(null);
-
-  const handleCopy = (voucher: string) => {
-    navigator.clipboard.writeText(voucher).then(() => {
-      setCopiedVoucher(voucher);
-      setTimeout(() => setCopiedVoucher(null), 2000);
-    });
-  };
 
   useEffect(() => {
     if (initialData?.priceHistory) return;
@@ -113,17 +106,6 @@ export const Popup = ({ initialData }: { initialData?: any }) => {
       fontWeight: '600',
       marginBottom: '8px',
       color: '#666'
-    },
-    voucherTag: {
-      display: 'inline-block',
-      backgroundColor: '#e3f2fd',
-      color: '#1976d2',
-      padding: '4px 8px',
-      borderRadius: '4px',
-      fontSize: '12px',
-      marginRight: '8px',
-      marginBottom: '4px',
-      fontWeight: 'bold'
     }
   };
 
@@ -155,22 +137,7 @@ export const Popup = ({ initialData }: { initialData?: any }) => {
           <div style={styles.voucherTitle}>Available Vouchers:</div>
           <div>
             {data.vouchers.map((voucher: string, index: number) => (
-              <div key={index} style={{ display: 'inline-block', marginRight: '8px', marginBottom: '4px' }}>
-                <span style={{ ...styles.voucherTag, marginRight: '4px', marginBottom: '0' }}>{voucher}</span>
-                <button
-                  onClick={() => handleCopy(voucher)}
-                  style={{
-                    backgroundColor: '#e0e0e0',
-                    border: 'none',
-                    borderRadius: '4px',
-                    padding: '2px 6px',
-                    fontSize: '11px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  {copiedVoucher === voucher ? 'Copied!' : 'Copy'}
-                </button>
-              </div>
+              <VoucherCard key={index} voucher={voucher} />
             ))}
           </div>
         </div>
