@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
+import { PriceHistoryChart, PricePoint } from './components/PriceHistoryChart';
 
 export const Popup = ({ initialData }: { initialData?: any }) => {
   // Using some mock data for demonstration
@@ -8,7 +9,8 @@ export const Popup = ({ initialData }: { initialData?: any }) => {
     bestPrice: 19.99,
     discountPercent: 50,
     vouchers: ['SAVE20', 'WINTERSALE'],
-    loading: false
+    loading: false,
+    priceHistory: [] as PricePoint[]
   });
 
   const [copiedVoucher, setCopiedVoucher] = useState<string | null>(null);
@@ -19,6 +21,39 @@ export const Popup = ({ initialData }: { initialData?: any }) => {
       setTimeout(() => setCopiedVoucher(null), 2000);
     });
   };
+
+  useEffect(() => {
+    if (initialData?.priceHistory) return;
+    // Generate some mock price history data over the past year
+    const generateMockHistory = () => {
+      const history: PricePoint[] = [];
+      const now = new Date();
+      let currentPrice = 39.99;
+
+      for (let i = 12; i >= 0; i--) {
+        const date = new Date(now);
+        date.setMonth(date.getMonth() - i);
+
+        // Random price drop logic
+        if (Math.random() > 0.7) {
+          currentPrice = Math.max(14.99, currentPrice - (Math.random() * 10));
+        } else if (Math.random() > 0.8) {
+          currentPrice = Math.min(59.99, currentPrice + (Math.random() * 15));
+        }
+
+        history.push({
+          date: date.toISOString(),
+          price: Number(currentPrice.toFixed(2))
+        });
+      }
+      return history;
+    };
+
+    setData(prev => ({
+      ...prev,
+      priceHistory: prev.priceHistory && prev.priceHistory.length > 0 ? prev.priceHistory : generateMockHistory()
+    }));
+  }, []);
 
   const styles = {
     container: {
@@ -139,6 +174,10 @@ export const Popup = ({ initialData }: { initialData?: any }) => {
             ))}
           </div>
         </div>
+      )}
+
+      {data.priceHistory.length > 0 && (
+        <PriceHistoryChart data={data.priceHistory} />
       )}
     </div>
   );
